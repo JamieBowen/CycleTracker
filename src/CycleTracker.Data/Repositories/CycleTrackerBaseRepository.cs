@@ -11,10 +11,10 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IRepository<T>
 	{
-		void Add(T item);
+		int Add(T item);
 		void Remove(T item);
 		void Update(T item);
-		T FindById(Guid id);
+		T FindById(int id);
 		IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
 		IEnumerable<T> FindAll();
 	}
@@ -32,16 +32,19 @@ namespace CycleTracker.Data.Repositories
 			return item;
 		}
 
-		public virtual void Add(T item)
+		public virtual int Add(T item)
 		{
+			int id;
+
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var insertQuery = Helpers.DynamicQuery.GetInsertQuery(_tableName, parameters);
-				cn.Execute(insertQuery);
-
+				int.TryParse(cn.ExecuteScalar(insertQuery, parameters).ToString(), out id);
 			}
+
+			return id;
 		}
 
 		public virtual void Update(T item)
@@ -64,14 +67,14 @@ namespace CycleTracker.Data.Repositories
 			}
 		}
 
-		public virtual T FindById(Guid id)
+		public virtual T FindById(int id)
 		{
 			T item = default(T);
 
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				cn.Open();
-				item = cn.Query<T>("SELECT * FROM " + _tableName + " WHERE ID=@ID", new { ID = id }).SingleOrDefault();
+				item = cn.Query<T>("SELECT * FROM " + _tableName + " WHERE Id=@Id", new { Id = id }).SingleOrDefault();
 			}
 
 			return item;

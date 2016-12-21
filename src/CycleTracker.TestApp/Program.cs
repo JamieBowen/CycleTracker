@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CycleTracker.Data.Models;
 
 namespace CycleTracker.TestApp
 {
@@ -10,8 +11,13 @@ namespace CycleTracker.TestApp
         public static void Main(string[] args)
         {
 			var repo = new Data.Repositories.BikeRepository();
+			var bike = new Bike { Make = "fuck you", Model = "no. fuck you.", Colors = "black", Trim = "fu", Year = 2016};
 
-			repo.getAll();
+			bike.Id = repo.Add(bike);
+
+	        var huh = repo.FindById(bike.Id);
+
+	        var x = 1;
         }
     }
 }
