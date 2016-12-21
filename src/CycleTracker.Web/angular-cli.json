@@ -1,12 +1,12 @@
 {
   "project": {
-    "version": "1.0.0-beta.22-1",
+    "version": "1.0.0-beta.24",
     "name": "cycle-tracker"
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "../Backend/wwwroot",
+      "outDir": "dist",
       "assets": [
         "assets",
         "favicon.ico"
