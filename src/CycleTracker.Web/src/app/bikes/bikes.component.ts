@@ -19,7 +19,7 @@ export class BikesComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.bikes = this.bikeService.getBikes(); 
+        this.bikes = this.bikeService.getAllBikes(); 
     }
 
     onSelect(bike: IBike) {

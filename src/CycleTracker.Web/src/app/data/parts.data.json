@@ -1,0 +1,26 @@
+[
+    {
+        "partId": 1,
+        "bikeId": 1,
+        "partName": "Rear tire",
+        "partDescription": "Specialized Espoir Sport, double BlackBelt, 60TPI, wire bead, 700x23c",
+        "installedOn": "2014-03-24",
+        "installedMileage": "0",
+        "replacedOn": "2014-08-13",
+        "replacedMileage": "1377",
+        "accruedMileage": "1377",
+        "retailer": "Specialized"
+    },
+    {
+        "partId": 2,
+        "bikeId": 1,
+        "partName": "Front tire",
+        "partDescription": "Specialized Espoir Sport, double BlackBelt, 60TPI, wire bead, 700x23c",
+        "installedOn": "2014-03-24",
+        "installedMileage": "0",
+        "replacedOn": "2014-08-31",
+        "replacedMileage": "1634",
+        "accruedMileage": "1634",
+        "retailer": "Specialized"
+    }
+]

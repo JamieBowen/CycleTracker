@@ -5,23 +5,30 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { PartsComponent } from './parts/parts.component';
 import { BikeDataService } from './data/bike.service';
+import { PartDataService } from './data/part.service';
 
+// import all operators during development
+// this runs a script that has side effects 
+// which makes operators available in all modules
 import 'rxjs/Rx';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    PartsComponent,
+    routingComponents,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     BikeDataService,
+    PartDataService,
   ],
   bootstrap: [AppComponent]
 })

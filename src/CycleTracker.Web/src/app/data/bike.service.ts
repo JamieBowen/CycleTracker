@@ -10,12 +10,12 @@ export class BikeDataService {
     
     constructor(private http: Http) { }
 
-    getBikes(): Observable<IBike[]> {
+    getAllBikes(): Observable<IBike[]> {
         return this.http.get('/app/data/bikes.data.json')
             .map((response: any) => response.json());
     } 
 
-    getBikeById(id: number): Observable<IBike> {
+    getBike(id: number): Observable<IBike> {
         return this.http.get('/app/data/bikes.data.json')
             .map((response: any) => response.json())
             .map((bikes: IBike[]) => bikes.find(bike => bike.bikeId == id));
