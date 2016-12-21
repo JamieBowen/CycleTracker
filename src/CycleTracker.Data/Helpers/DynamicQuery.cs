@@ -25,9 +25,9 @@ namespace CycleTracker.Data.Helpers
 		public static string GetInsertQuery(string tableName, dynamic item)
 		{
 			PropertyInfo[] props = item.GetType().GetProperties();
-			string[] columns = props.Select(p => p.Name).Where(s => s != "ID").ToArray();
+			string[] columns = props.Select(p => p.Name).Where(s => s != "Id").ToArray();
 
-			return string.Format("INSERT INTO {0} ({1}) OUTPUT inserted.ID VALUES (@{2})",
+			return string.Format("INSERT INTO {0} ({1}) VALUES (@{2}); SELECT last_insert_rowid();",
 								 tableName,
 								 string.Join(",", columns),
 								 string.Join(",@", columns));
@@ -48,7 +48,7 @@ namespace CycleTracker.Data.Helpers
 
 			var parameters = columns.Select(name => name + "=@" + name).ToList();
 
-			return string.Format("UPDATE {0} SET {1} WHERE ID=@ID", tableName, string.Join(",", parameters));
+			return string.Format("UPDATE {0} SET {1} WHERE Id=@Id", tableName, string.Join(",", parameters));
 		}
 
 		/// <summary>

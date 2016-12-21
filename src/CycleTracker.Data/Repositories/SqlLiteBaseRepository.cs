@@ -18,28 +18,25 @@ namespace CycleTracker.Data.Repositories
 
 			if (!File.Exists(DbFileLocation))
 			{
-				CreateDatabase();
+				CreateDatabase(connection);
 			}
 
 		    return connection;
 	    }
 
-		private static void CreateDatabase()
+		private static void CreateDatabase(SqliteConnection connection)
 		{
-			using (var cnn = CycleTrackerDbConnection())
-			{
-				cnn.Open();
-				cnn.Execute(
-					@"create table Bikes
-                    (
-						Id                  UNIQUEIDENTIFIER primary key,
-                        Make                varchar(100) not null,
-                        Model               varchar(100) not null,
-                        Year                int not null,
-						Trim	            varchar(100) null,
-						Colors     	        varchar(200) null
-                      )");
-			}
+			connection.Open();
+			connection.Execute(
+				@"create table Bikes
+                (
+					Id                  INTEGER primary key,
+                    Make                varchar(100) not null,
+                    Model               varchar(100) not null,
+                    Year                int not null,
+					Trim	            varchar(100) null,
+					Colors     	        varchar(200) null
+                    )");
 		}
 	}
 }
