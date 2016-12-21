@@ -17,9 +17,9 @@ export class PartDataService {
             .map((parts: IPart[]) => parts.filter(part => part.bikeId == bikeId));
     }
 
-    getPart(partId: number): Observable<IPart> {
+    getPart(id: number): Observable<IPart> {
         return this.get('/app/data/parts.data.json')
-            .map((parts: IPart[]) => parts.find(part => part.partId == partId));
+            .map((parts: IPart[]) => parts.find(part => part.id == id));
     }
 
     private get(url): Observable<any> {

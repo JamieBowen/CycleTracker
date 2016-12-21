@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BikeDataService } from '../data/bike.service';
@@ -13,14 +12,13 @@ import { IPart } from '../data/part.model';
     templateUrl: './bike.component.html',
 })
 export class BikeComponent implements OnInit {
-    bike: IBike;
+    bike: IBike = <any>{};
     parts: IPart[];
 
     constructor(
         private bikeService: BikeDataService,
         private partService: PartDataService,
         private route: ActivatedRoute,
-        private http: Http
     ) { }
 
     ngOnInit(): void {
@@ -28,11 +26,8 @@ export class BikeComponent implements OnInit {
             .switchMap((params: Params) => this.bikeService.getBike(+params['id']))
             .switchMap((bike: IBike) => {
                 this.bike = bike;
-                return this.partService.getBikeParts(bike.bikeId);
+                return this.partService.getBikeParts(bike.id);
             })
             .subscribe((parts: IPart[]) => this.parts = parts);
-
-        this.http.get('/api/values').subscribe((val)=>console.log(val));
     }
-
 }

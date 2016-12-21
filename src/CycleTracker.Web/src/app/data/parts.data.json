@@ -1,6 +1,6 @@
 [
     {
-        "partId": 1,
+        "id": 1,
         "bikeId": 1,
         "partName": "Rear tire",
         "partDescription": "Specialized Espoir Sport, double BlackBelt, 60TPI, wire bead, 700x23c",
@@ -12,7 +12,7 @@
         "retailer": "Specialized"
     },
     {
-        "partId": 2,
+        "id": 2,
         "bikeId": 1,
         "partName": "Front tire",
         "partDescription": "Specialized Espoir Sport, double BlackBelt, 60TPI, wire bead, 700x23c",

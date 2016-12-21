@@ -18,6 +18,6 @@ export class BikeDataService {
     getBike(id: number): Observable<IBike> {
         return this.http.get('/app/data/bikes.data.json')
             .map((response: any) => response.json())
-            .map((bikes: IBike[]) => bikes.find(bike => bike.bikeId == id));
+            .map((bikes: IBike[]) => bikes.find(bike => bike.id == id));
     }
 }

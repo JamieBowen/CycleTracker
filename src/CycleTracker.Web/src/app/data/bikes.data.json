@@ -1,6 +1,6 @@
 [
     {
-        "bikeId": 1,
+        "id": 1,
         "make": "Specialized",
         "model": "Roubaix",
         "year": 2013,
@@ -8,7 +8,7 @@
         "colors": "Black,Red"
     },
     {
-        "bikeId": 2,
+        "id": 2,
         "make": "Trek",
         "model": "7500",
         "year": 2011,
@@ -16,7 +16,7 @@
         "colors": "Black,Silver"
     },
     {
-        "bikeId": 3,
+        "id": 3,
         "make": "Specialized",
         "model": "Ruby",
         "year": 2009,

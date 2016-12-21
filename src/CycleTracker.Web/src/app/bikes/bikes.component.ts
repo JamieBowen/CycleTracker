@@ -23,7 +23,7 @@ export class BikesComponent implements OnInit {
     }
 
     onSelect(bike: IBike) {
-        this.router.navigate(['/bike', bike.bikeId]);
+        this.router.navigate(['/bike', bike.id]);
     }
 
 }
