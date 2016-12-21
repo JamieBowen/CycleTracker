@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
+import { Observable } from 'rxjs';
+
+import { IPart } from './part.model';
+
+@Injectable()
+export class PartDataService {
+    constructor(private http: Http) { }
+
+    getParts(): Observable<IPart[]> {
+        return this.get('/app/data/parts.data.json');
+    } 
+
+    getPartsByBike(bikeId: number) {
+        return this.get('/app/data/parts.data.json')
+            .map((parts: IPart[]) => parts.filter(part => part.bikeId == bikeId));
+    }
+
+    getPartById(partId: number): Observable<IPart> {
+        return this.get('/app/data/parts.data.json')
+            .map((parts: IPart[]) => parts.find(part => part.partId == partId));
+    }
+
+    private get(url): Observable<any> {
+        return this.http.get(url)
+            .map((response: any) => response.json());
+    }
+}
