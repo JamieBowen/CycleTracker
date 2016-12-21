@@ -1,5 +1,5 @@
 export interface IBike {
-    bikeId: number,
+    id: number,
     make: string,
     model: string,
     year: number,

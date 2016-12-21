@@ -1,6 +1,6 @@
 export interface IPart
 {
-    partId: number;
+    id: number;
     bikeId: number;
     partName: string;
     partDescription: string;

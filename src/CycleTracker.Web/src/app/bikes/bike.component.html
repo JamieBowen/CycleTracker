@@ -1,0 +1,15 @@
+<section class="container">
+    <div class="row">
+        <div class="col-xs-9 h4">            
+            {{bike.year}} {{bike.make}} {{bike.model}} {{bike.trim}}            
+        </div>
+        <div class="col-xs-3 text-right">
+            <button class="btn btn-default">
+                Edit
+            </button>
+        </div>
+    </div>
+</section>
+<section>
+    <part-list [parts]="parts"></part-list>
+</section>
