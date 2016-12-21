@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BikeDataService } from '../data/bike.service';
@@ -18,17 +19,20 @@ export class BikeComponent implements OnInit {
     constructor(
         private bikeService: BikeDataService,
         private partService: PartDataService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private http: Http
     ) { }
 
     ngOnInit(): void {
         this.route.params // (+) converts string 'id' to a number
-            .switchMap((params: Params) => this.bikeService.getBike(+params['id'])) 
+            .switchMap((params: Params) => this.bikeService.getBike(+params['id']))
             .switchMap((bike: IBike) => {
                 this.bike = bike;
                 return this.partService.getBikeParts(bike.bikeId);
             })
             .subscribe((parts: IPart[]) => this.parts = parts);
+
+        this.http.get('/api/values').subscribe((val)=>console.log(val));
     }
 
 }
