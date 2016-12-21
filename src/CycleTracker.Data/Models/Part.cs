@@ -2,9 +2,8 @@
 
 namespace CycleTracker.Data.Models
 {
-    public class Part
+    public class Part : CycleTrackerBase
     {
-	    public Guid Id { get; set; }
 	    public string Name { get; set; }
 	    public string Description { get; set; }
 	    public DateTimeOffset InstallationDate { get; set; }

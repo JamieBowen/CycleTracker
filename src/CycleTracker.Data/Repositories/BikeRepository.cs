@@ -4,36 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using CycleTracker.Data.Models;
 using Dapper;
 
 namespace CycleTracker.Data.Repositories
 {
-    public class BikeRepository : SqLiteBaseRepository
+    public class BikeRepository : Repositories.CycleTrackerBaseRepository<Bike>
     {
-	    public void getAll()
+	    public BikeRepository() : base("Bikes")
 	    {
-		    if (!File.Exists(DbFileLocation))
-		    {
-			    CreateDatabase();
-		    }
-	    }
-
-	    private static void CreateDatabase()
-	    {
-		    using (var cnn = CycleTrackerDbConnection())
-		    {
-			    cnn.Open();
-			    cnn.Execute(
-					@"create table Bikes
-                    (
-						Id                  UNIQUEIDENTIFIER primary key,
-                        Make                varchar(100) not null,
-                        Model               varchar(100) not null,
-                        Year                int not null,
-						Trim	            varchar(100) null,
-						ColorDescription	varchar(200) null
-                      )");
-		    }
 	    }
     }
 }
