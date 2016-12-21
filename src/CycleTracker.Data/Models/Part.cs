@@ -6,8 +6,8 @@ namespace CycleTracker.Data.Models
     {
 	    public string Name { get; set; }
 	    public string Description { get; set; }
-	    public DateTimeOffset InstallationDate { get; set; }
-	    public int InstallationBikeMileage { get; set; }
+	    public DateTimeOffset InstalledDate { get; set; }
+	    public int InstalledBikeMileage { get; set; }
 	    public DateTimeOffset ReplacedDate { get; set; }
 	    public int ReplacedBikeMileage { get; set; }
 	    public int AccruedMileage { get; set; }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CycleTracker.Data.Models
+﻿namespace CycleTracker.Data.Models
 {
 	public class Bike : CycleTrackerBase
 	{
