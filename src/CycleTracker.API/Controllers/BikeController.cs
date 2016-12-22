@@ -54,7 +54,7 @@ namespace CycleTracker.API.Controllers
             return bikeRepository.FindById(id);
         }
 
-		// GET api/Bike/5
+		// GET api/Bike/withparts/5
 		[HttpGet("withparts/{id}")]
 		public Bike GetWithParts(long id)
 		{
