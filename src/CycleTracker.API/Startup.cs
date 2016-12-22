@@ -39,6 +39,9 @@ namespace CycleTracker.API
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+			//dep injection
+	        services.AddSingleton<Data.Repositories.IBikeRepository, Data.Repositories.BikeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
