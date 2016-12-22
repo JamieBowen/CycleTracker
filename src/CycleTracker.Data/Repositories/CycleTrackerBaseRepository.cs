@@ -11,7 +11,7 @@ namespace CycleTracker.Data.Repositories
 	public interface IRepository<T>
 	{
 		long Add(T item);
-		void Remove(T item);
+		void Remove(long id);
 		void Update(T item);
 		T FindById(long id);
 		IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
@@ -54,12 +54,12 @@ namespace CycleTracker.Data.Repositories
 			}
 		}
 
-		public virtual void Remove(T item)
+		public virtual void Remove(long id)
 		{
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				cn.Open();
-				cn.Execute("DELETE FROM " + _tableName + " WHERE Id=@Id", new { Id = item.Id });
+				cn.Execute("DELETE FROM " + _tableName + " WHERE Id=@Id", new { Id = id });
 			}
 		}
 
