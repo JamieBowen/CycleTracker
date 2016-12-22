@@ -7,6 +7,6 @@ namespace CycleTracker.Data.Models
 {
     public abstract class CycleTrackerBase
     {
-	    public int Id { get; set; }
+	    public long Id { get; set; }
     }
 }

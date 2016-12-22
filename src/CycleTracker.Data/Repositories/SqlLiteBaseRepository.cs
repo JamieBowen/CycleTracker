@@ -1,28 +1,24 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
 namespace CycleTracker.Data.Repositories
 {
-    public abstract class SqLiteBaseRepository
-    {
-	    public static string DbFileLocation => Directory.GetCurrentDirectory() + "CycleTrackerData.sqlite";
+	public abstract class SqLiteBaseRepository
+	{
+		public static string DbFileLocation => Directory.GetCurrentDirectory() + "CycleTrackerData.sqlite";
 
-	    public static SqliteConnection CycleTrackerDbConnection()
-	    {
-		    var connection = new SqliteConnection("Data Source=" + DbFileLocation);
+		public static SqliteConnection CycleTrackerDbConnection()
+		{
+			var connection = new SqliteConnection("Data Source=" + DbFileLocation);
 
 			if (!File.Exists(DbFileLocation))
 			{
 				CreateDatabase(connection);
 			}
 
-		    return connection;
-	    }
+			return connection;
+		}
 
 		private static void CreateDatabase(SqliteConnection connection)
 		{
@@ -31,12 +27,13 @@ namespace CycleTracker.Data.Repositories
 				@"create table Bikes
                 (
 					Id                  INTEGER primary key,
-                    Make                varchar(100) not null,
-                    Model               varchar(100) not null,
-                    Year                int not null,
-					Trim	            varchar(100) null,
-					Colors     	        varchar(200) null
-                    )");
+                    Make                TEXT not null,
+                    Model               TEXT not null,
+                    Year                INTEGER not null,
+					Trim	            TEXT null,
+					Colors     	        TEXT null
+                )"
+			);
 		}
 	}
 }
