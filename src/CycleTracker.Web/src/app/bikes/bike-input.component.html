@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {{header}}
+    </div>
+    <div class="panel-body">
+        <form>
+            <div class="form-group">
+                <label for="makeInput">Manufacturer</label>
+                <input type="text" class="form-control" name="makeInput" id="makeInput" [(ngModel)]="bike.make" />
+            </div>
+            <div class="form-group">
+                <label for="modelInput">Model</label>
+                <input type="text" class="form-control" name="modelInput" id="modelInput" [(ngModel)]="bike.model" />
+            </div>
+            <div class="form-group">
+                <label for="trimInput">Trim</label>
+                <input type="text" class="form-control" name="trimInput" id="trimInput" [(ngModel)]="bike.trim" />
+            </div>
+            <div class="form-group">
+                <label for="yearInput">Year</label>
+                <input type="text" class="form-control" name="yearInput" id="yearInput" [(ngModel)]="bike.year" />
+            </div>
+            <div class="form-group">
+                <label for="colorInput">Colors</label>
+                <input type="text" class="form-control" name="colorInput" id="colorInput" [(ngModel)]="bike.colors" />
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-default" (click)="save()">Save</button>
+    </div>
+</div>

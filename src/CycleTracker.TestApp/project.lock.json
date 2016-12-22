@@ -2591,8 +2591,8 @@
       "type": "package",
       "path": "Microsoft.Data.Sqlite/1.1.0",
       "files": [
-        "Microsoft.Data.SQLite.1.1.0.nupkg.sha512",
-        "Microsoft.Data.SQLite.nuspec",
+        "Microsoft.Data.Sqlite.1.1.0.nupkg.sha512",
+        "Microsoft.Data.Sqlite.nuspec",
         "lib/net451/Microsoft.Data.Sqlite.dll",
         "lib/net451/Microsoft.Data.Sqlite.xml",
         "lib/netstandard1.3/Microsoft.Data.Sqlite.dll",
@@ -3083,6 +3083,8 @@
       "type": "package",
       "path": "SQLite/3.13.0",
       "files": [
+        "SQLite.3.13.0.nupkg.sha512",
+        "SQLite.nuspec",
         "build/net45/SQLite.props",
         "lib/netstandard1.0/_._",
         "runtimes/linux-x64/native/libsqlite3.so",
@@ -3092,9 +3094,7 @@
         "runtimes/win10-x86/nativeassets/uap10.0/sqlite3.dll",
         "runtimes/win7-x64/native/sqlite3.dll",
         "runtimes/win7-x86/native/sqlite3.dll",
-        "sqlite-version.txt",
-        "sqlite.3.13.0.nupkg.sha512",
-        "sqlite.nuspec"
+        "sqlite-version.txt"
       ]
     },
     "System.AppContext/4.3.0": {

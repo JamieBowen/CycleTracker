@@ -1,15 +1,22 @@
-<section class="container">
-    <div class="row">
-        <div class="col-xs-9 h4">            
-            {{bike.year}} {{bike.make}} {{bike.model}} {{bike.trim}}            
+<div class="panel panel-default">
+    <div class="panel-heading">        
+        <div class="panel-title pull-left">
+            {{bike.year}} {{bike.make}} {{bike.model}} {{bike.trim}}
         </div>
-        <div class="col-xs-3 text-right">
-            <button class="btn btn-default">
+        <div class="pull-right">
+            <a class="btn btn-sm btn-default" [routerLink]="['/bike/edit', bike.id]">
                 Edit
-            </button>
+            </a>
+            <a class="btn btn-sm btn-default" [routerLink]="['/bike/delete', bike.id]">
+                Delete
+            </a>
         </div>
+        <div class="clearfix"></div>
     </div>
-</section>
-<section>
-    <part-list [parts]="parts"></part-list>
-</section>
+    <part-list [parts]="parts" class="panel-body"></part-list>
+    <div class="panel-footer text-right">
+        <a class="btn btn-sm btn-default" [routerLink]="['/bike/add']">
+            Add Bike
+        </a>
+    </div>
+</div>
