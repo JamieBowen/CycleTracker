@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using CycleTracker.Data.Models;
 using Dapper;
 
@@ -34,17 +33,13 @@ namespace CycleTracker.Data.Repositories
 
 		public virtual int Add(T item)
 		{
-			int id;
-
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var insertQuery = Helpers.DynamicQuery.GetInsertQuery(_tableName, parameters);
-				int.TryParse(cn.ExecuteScalar(insertQuery, parameters).ToString(), out id);
+				return (cn.ExecuteScalar(insertQuery, parameters) as int?) ?? 0;
 			}
-
-			return id;
 		}
 
 		public virtual void Update(T item)
