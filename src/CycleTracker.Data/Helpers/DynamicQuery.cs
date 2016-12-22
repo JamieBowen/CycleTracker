@@ -49,7 +49,9 @@ namespace CycleTracker.Data.Helpers
 		public static string GetUpdateQuery(string tableName, dynamic item)
 		{
 			PropertyInfo[] props = item.GetType().GetProperties();
-			string[] columns = props.Select(p => p.Name).ToArray();
+			string[] columns = props.Where(p =>
+							p.CustomAttributes.All(a => a.AttributeType != typeof(IgnoreAttribute))
+						).Select(p => p.Name).ToArray();
 
 			var parameters = columns.Select(name => name + "=@" + name).ToList();
 
