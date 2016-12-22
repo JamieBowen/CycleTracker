@@ -12,11 +12,26 @@ export class BikeDataService {
 
     getAllBikes(): Observable<IBike[]> {
         return this.http.get(this.baseUrl)
-            .map((response: any) => response.json());
+            .map((response: Response) => response.json());
     } 
 
     getBike(id: number): Observable<IBike> {
         return this.http.get(`${this.baseUrl}/${id}`)
-            .map((response: any) => response.json());            
+            .map((response: Response) => response.json());            
     }    
+
+    add(bike: IBike): Observable<IBike> {
+        return this.http.post(this.baseUrl, bike)
+            .map((response: Response) => response.json());
+    }
+
+    update(bike: IBike): Observable<void> {
+        return this.http.put(this.baseUrl, bike)
+            .map((response: Response) => null);
+    }
+    
+    delete(id: number): Observable<void> {
+        return this.http.delete(this.baseUrl, id)
+            .map((response: Response) => null);
+    }
 }

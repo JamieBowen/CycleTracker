@@ -50,7 +50,7 @@ namespace CycleTracker.Data.Repositories
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var updateQuery = Helpers.DynamicQuery.GetUpdateQuery(_tableName, parameters);
-				cn.Execute(updateQuery);
+				cn.Execute(updateQuery, parameters);
 			}
 		}
 
