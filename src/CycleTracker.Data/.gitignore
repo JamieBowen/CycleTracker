@@ -3,9 +3,9 @@
 # compiled output
 /dist
 /tmp
-/bin
-/Data
-/obj
+bin/
+Data/
+obj/
 
 # dependencies
 /node_modules

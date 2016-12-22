@@ -20,10 +20,10 @@ namespace CycleTracker.API.Controllers
 		    this.bikeRepository = bikeRepository;
 	    }
 
-	    // GET: api/Bike
-        [HttpGet]
-        public IEnumerable<Bike> Get()
-        {
+		// GET: api/Bike/init
+		[HttpGet("init")]
+		public IEnumerable<Bike> GetInit()
+		{
 			var partRepo = new PartRepository();
 			var bike = new Bike { Make = "fuck you", Model = "no. fuck you.", Colors = "black", Trim = "fu", Year = 2016 };
 
@@ -35,8 +35,15 @@ namespace CycleTracker.API.Controllers
 
 			part = new Part { BikeId = bike.Id, Description = "test 2", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Seat" };
 
-	        partRepo.Add(part);
+			partRepo.Add(part);
 
+			return bikeRepository.FindAll();
+		}
+
+		// GET: api/Bike
+		[HttpGet]
+        public IEnumerable<Bike> Get()
+        {
 			return bikeRepository.FindAll();
         }
 
