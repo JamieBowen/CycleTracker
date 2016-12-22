@@ -10,17 +10,18 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IRepository<T>
 	{
-		int Add(T item);
+		long Add(T item);
 		void Remove(T item);
 		void Update(T item);
-		T FindById(int id);
+		T FindById(long id);
 		IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
 		IEnumerable<T> FindAll();
 	}
+
 	public abstract class CycleTrackerBaseRepository<T> : SqLiteBaseRepository, IRepository<T> where T : CycleTrackerBase
 	{
 		private readonly string _tableName;
-
+		
 	    public CycleTrackerBaseRepository(string tableName)
 	    {
 		    _tableName = tableName;
@@ -31,14 +32,14 @@ namespace CycleTracker.Data.Repositories
 			return item;
 		}
 
-		public virtual int Add(T item)
+		public virtual long Add(T item)
 		{
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var insertQuery = Helpers.DynamicQuery.GetInsertQuery(_tableName, parameters);
-				return (cn.ExecuteScalar(insertQuery, parameters) as int?) ?? 0;
+				return (long)cn.ExecuteScalar(insertQuery, parameters);
 			}
 		}
 
@@ -62,7 +63,7 @@ namespace CycleTracker.Data.Repositories
 			}
 		}
 
-		public virtual T FindById(int id)
+		public virtual T FindById(long id)
 		{
 			T item = default(T);
 
