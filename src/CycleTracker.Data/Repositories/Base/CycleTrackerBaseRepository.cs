@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using CycleTracker.Data.Models;
 using Dapper;
 
-namespace CycleTracker.Data.Repositories
+namespace CycleTracker.Data.Repositories.Base
 {
 	public interface IRepository<T>
 	{

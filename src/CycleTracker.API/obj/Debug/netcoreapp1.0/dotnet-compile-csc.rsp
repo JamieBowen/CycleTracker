@@ -180,5 +180,6 @@
 -resource:"C:\Personal\CycleTracker\src\CycleTracker.API\obj\Debug\netcoreapp1.0\CycleTracker.APIdotnet-compile.deps.json",CycleTracker.API.deps.json
 "C:\Personal\CycleTracker\src\CycleTracker.API\Program.cs"
 "C:\Personal\CycleTracker\src\CycleTracker.API\Startup.cs"
+"C:\Personal\CycleTracker\src\CycleTracker.API\Attributes\IgnoreAttribute.cs"
 "C:\Personal\CycleTracker\src\CycleTracker.API\Controllers\BikeController.cs"
-"C:\Personal\CycleTracker\src\CycleTracker.API\Controllers\ValuesController.cs"
+"C:\Personal\CycleTracker\src\CycleTracker.API\Controllers\PartController.cs"

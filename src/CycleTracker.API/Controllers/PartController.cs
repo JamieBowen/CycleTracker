@@ -4,39 +4,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
+// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
 namespace CycleTracker.API.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class PartController : Controller
     {
-        // GET api/values
+        // GET: api/Part
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
+		// GET api/Part/5
+		[HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
-        [HttpPost]
+		// POST api/Part
+		[HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
+		// PUT api/Part/5
+		[HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
+		// DELETE api/Part/5
+		[HttpDelete("{id}")]
         public void Delete(int id)
         {
         }
