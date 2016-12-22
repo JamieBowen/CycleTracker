@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using CycleTracker.Data.Models;
 using Dapper;
 
@@ -11,17 +10,18 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IRepository<T>
 	{
-		int Add(T item);
+		long Add(T item);
 		void Remove(T item);
 		void Update(T item);
-		T FindById(int id);
+		T FindById(long id);
 		IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
 		IEnumerable<T> FindAll();
 	}
+
 	public abstract class CycleTrackerBaseRepository<T> : SqLiteBaseRepository, IRepository<T> where T : CycleTrackerBase
 	{
 		private readonly string _tableName;
-
+		
 	    public CycleTrackerBaseRepository(string tableName)
 	    {
 		    _tableName = tableName;
@@ -32,19 +32,15 @@ namespace CycleTracker.Data.Repositories
 			return item;
 		}
 
-		public virtual int Add(T item)
+		public virtual long Add(T item)
 		{
-			int id;
-
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var insertQuery = Helpers.DynamicQuery.GetInsertQuery(_tableName, parameters);
-				int.TryParse(cn.ExecuteScalar(insertQuery, parameters).ToString(), out id);
+				return (long)cn.ExecuteScalar(insertQuery, parameters);
 			}
-
-			return id;
 		}
 
 		public virtual void Update(T item)
@@ -67,7 +63,7 @@ namespace CycleTracker.Data.Repositories
 			}
 		}
 
-		public virtual T FindById(int id)
+		public virtual T FindById(long id)
 		{
 			T item = default(T);
 
