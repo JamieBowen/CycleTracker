@@ -9,7 +9,7 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IBikeRepository : IRepository<Bike>
 	{
-		IEnumerable<Bike> GetBikeWithParts(long id);
+		Bike GetBikeWithParts(long id);
 	}
 
 	public class BikeRepository : CycleTrackerBaseRepository<Bike>, IBikeRepository
@@ -18,7 +18,7 @@ namespace CycleTracker.Data.Repositories
 	    {
 	    }
 
-	    public IEnumerable<Bike> GetBikeWithParts(long id)
+	    public Bike GetBikeWithParts(long id)
 	    {
 		    var dbQuery = @"SELECT b.*, p.* 
 							FROM Bikes b 
@@ -54,7 +54,7 @@ namespace CycleTracker.Data.Repositories
 				).AsEnumerable();
 			}
 			
-			return bikeList;
+			return bikeList.FirstOrDefault();
 		}
     }
 }
