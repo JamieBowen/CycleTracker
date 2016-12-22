@@ -1,21 +1,16 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Parts
-    </div>
-    <table class="table table-hover panel-body">
-        <thead>
-            <tr>
-                <th>Part</th>
-                <th>Installed</th>
-                <th>Mileage</th>
-            </tr>   
-        </thead>
-        <tbody>
-            <tr *ngFor="let part of parts">
-                <td>{{part.partName}}</td>
-                <td>{{part.installedOn | date:'MM/dd/yyyy'}}</td>
-                <td>{{part.installedMileage}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Part</th>
+            <th>Installed</th>
+            <th>Mileage</th>
+        </tr>   
+    </thead>
+    <tbody>
+        <tr *ngFor="let part of parts">
+            <td>{{part.partName}}</td>
+            <td>{{part.installedOn | date:'MM/dd/yyyy'}}</td>
+            <td>{{part.installedMileage}}</td>
+        </tr>
+    </tbody>
+</table>

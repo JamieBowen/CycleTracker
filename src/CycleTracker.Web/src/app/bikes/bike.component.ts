@@ -8,7 +8,7 @@ import { PartDataService } from '../data/part.service';
 import { IPart } from '../data/part.model';
 
 @Component({
-    selector: 'bike-detail',
+    selector: 'bike-view',
     templateUrl: './bike.component.html',
 })
 export class BikeComponent implements OnInit {

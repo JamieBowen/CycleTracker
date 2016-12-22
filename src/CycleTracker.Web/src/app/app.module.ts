@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
+import { BikeInputComponent } from './bikes/bike-input.component';
 import { PartsComponent } from './parts/parts.component';
 import { BikeDataService } from './data/bike.service';
 import { PartDataService } from './data/part.service';
@@ -17,6 +18,7 @@ import 'rxjs/Rx';
 @NgModule({
   declarations: [
     AppComponent,
+    BikeInputComponent,
     PartsComponent,
     routingComponents,
   ],
