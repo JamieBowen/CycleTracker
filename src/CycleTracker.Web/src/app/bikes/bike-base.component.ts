@@ -17,7 +17,7 @@ export abstract class BikeComponentBase implements OnInit {
 
     ngOnInit(): void {
         this.route.params // (+) converts string 'id' to a number
-            .switchMap((params: Params) => this.bikeService.getBike(+params['id']))
+            .switchMap((params: Params) => this.bikeService.get(+params['id']))
             .subscribe((bike: IBike) => this.bike = bike);
     }
 }

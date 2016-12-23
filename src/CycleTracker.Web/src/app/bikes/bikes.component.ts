@@ -19,11 +19,11 @@ export class BikesComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.bikes = this.bikeService.getAllBikes(); 
+        this.bikes = this.bikeService.getAll(); 
     }
 
     onSelect(bike: IBike) {
-        this.router.navigate(['/bike', bike.id]);
+        this.router.navigate(['/bike/view', bike.id]);
     }
 
 }

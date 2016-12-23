@@ -10,8 +10,8 @@ import { BikeDeleteComponent } from './bikes/bike-delete.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'bikes' },
   { path: 'bikes', component: BikesComponent },
-  { path: 'bike/:id', component: BikeComponent },
   { path: 'bike/add', component: BikeAddComponent},
+  { path: 'bike/view/:id', component: BikeComponent },
   { path: 'bike/edit/:id', component: BikeEditComponent },
   { path: 'bike/delete/:id', component: BikeDeleteComponent },
 ];

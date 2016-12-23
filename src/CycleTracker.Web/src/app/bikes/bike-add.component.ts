@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { BikeComponentBase } from './bike-base.component';
 import { BikeDataService } from '../data/bike.service';
 import { IBike } from '../data/bike.model';
 

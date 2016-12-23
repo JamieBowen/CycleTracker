@@ -10,12 +10,12 @@ export class BikeDataService {
     
     constructor(private http: Http) { }
 
-    getAllBikes(): Observable<IBike[]> {
+    getAll(): Observable<IBike[]> {
         return this.http.get(this.baseUrl)
             .map((response: Response) => response.json());
     } 
 
-    getBike(id: number): Observable<IBike> {
+    get(id: number): Observable<IBike> {
         return this.http.get(`${this.baseUrl}/${id}`)
             .map((response: Response) => response.json());            
     }    
@@ -31,7 +31,7 @@ export class BikeDataService {
     }
     
     delete(id: number): Observable<void> {
-        return this.http.delete(this.baseUrl, id)
+        return this.http.delete(`${this.baseUrl}/${id}`)
             .map((response: Response) => null);
     }
 }

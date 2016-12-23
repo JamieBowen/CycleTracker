@@ -8,22 +8,16 @@ import { IPart } from './part.model';
 export class PartDataService {
     constructor(private http: Http) { }
 
-    getAllParts(): Observable<IPart[]> {
-        return this.get('/app/data/parts.data.json');
-    } 
-
-    getBikeParts(bikeId: number): Observable<IPart[]> {
-        return this.get('/app/data/parts.data.json')
-            .map((parts: IPart[]) => parts.filter(part => part.bikeId == bikeId));
-    }
-
-    getPart(id: number): Observable<IPart> {
-        return this.get('/app/data/parts.data.json')
+    get(id: number): Observable<IPart> {
+        return this.http.get('/app/data/parts.data.json')
+            .map((response: any) => response.json())
             .map((parts: IPart[]) => parts.find(part => part.id == id));
     }
 
-    private get(url): Observable<any> {
-        return this.http.get(url)
-            .map((response: any) => response.json());
+    getBikeParts(bikeId: number): Observable<IPart[]> {
+        return this.http.get('/app/data/parts.data.json')
+            .map((response: any) => response.json())
+            .map((parts: IPart[]) => parts.filter(part => part.bikeId == bikeId));
     }
+
 }
