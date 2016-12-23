@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CycleTracker.Data.Models;
 using CycleTracker.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CycleTracker.API.Controllers
 {
@@ -25,15 +21,15 @@ namespace CycleTracker.API.Controllers
 		public IEnumerable<Bike> GetInit()
 		{
 			var partRepo = new PartRepository();
-			var bike = new Bike { Make = "fuck you", Model = "no. fuck you.", Colors = "black", Trim = "fu", Year = 2016 };
+			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper", Colors = "Black / Green", Trim = " FSR Evo Comp 650b", Year = 2015 };
 
 			bike.Id = bikeRepository.Add(bike);
 
-			var part = new Part { BikeId = bike.Id, Description = "test", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Seat Post" };
+			var part = new Part { BikeId = bike.Id, Description = "Hope Pro 4 with Stans No Tubes ZTR Hoops", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Front Wheel" };
 
 			partRepo.Add(part);
 
-			part = new Part { BikeId = bike.Id, Description = "test 2", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Seat" };
+			part = new Part { BikeId = bike.Id, Description = "Hope Pro 4 with Stans No Tubes ZTR Hoops", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Rear Wheel" };
 
 			partRepo.Add(part);
 

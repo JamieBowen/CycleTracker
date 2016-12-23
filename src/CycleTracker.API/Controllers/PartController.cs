@@ -1,46 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using CycleTracker.Data.Models;
+using CycleTracker.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CycleTracker.API.Controllers
 {
     [Route("api/[controller]")]
     public class PartController : Controller
     {
-        // GET: api/Part
+	    private readonly IPartRepository partRepository;
+	    public PartController(IPartRepository partRepository)
+	    {
+		    this.partRepository = partRepository;
+	    }
+
+	    // GET: api/Part
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Part> Get()
         {
-            return new string[] { "value1", "value2" };
+            return partRepository.FindAll();
         }
 
 		// GET api/Part/5
 		[HttpGet("{id}")]
-        public string Get(int id)
+        public Part Get(long id)
         {
-            return "value";
+            return partRepository.FindById(id);
         }
 
 		// POST api/Part
 		[HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        public Part Post([FromBody]Part value)
+		{
+			var id = partRepository.Add(value);
+			return partRepository.FindById(id);
+		}
 
 		// PUT api/Part/5
-		[HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+		[HttpPut]
+        public void Put([FromBody]Part value)
         {
+			partRepository.Update(value);
         }
 
 		// DELETE api/Part/5
 		[HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
+			partRepository.Remove(id);
         }
     }
 }
