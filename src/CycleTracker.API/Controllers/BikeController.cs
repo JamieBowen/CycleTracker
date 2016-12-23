@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CycleTracker.Data.Models;
+using CycleTracker.Data.Models.EnumTypes;
 using CycleTracker.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,15 +26,37 @@ namespace CycleTracker.API.Controllers
 		public IEnumerable<Bike> GetInit()
 		{
 			var partRepo = new PartRepository();
-			var bike = new Bike { Make = "fuck you", Model = "no. fuck you.", Colors = "black", Trim = "fu", Year = 2016 };
+			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
 
 			bike.Id = bikeRepository.Add(bike);
 
-			var part = new Part { BikeId = bike.Id, Description = "test", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Seat Post" };
+			var part = new Part
+			{
+				BikeId = bike.Id,
+				PartType = PartType.FrontHub,
+				Description = "Blue",
+				InstalledBikeMileage = 3,
+				InstalledDate = DateTime.UtcNow,
+				Retailer = "Eddy's",
+				Model = "Pro4",
+				Manufacture = "Hope",
+				Price = 199.90M
+			};
 
 			partRepo.Add(part);
 
-			part = new Part { BikeId = bike.Id, Description = "test 2", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Seat" };
+			part = new Part
+			{
+				BikeId = bike.Id,
+				PartType = PartType.RearHub,
+				Description = "Blue",
+				InstalledBikeMileage = 3,
+				InstalledDate = DateTime.UtcNow,
+				Retailer = "Eddy's",
+				Model = "Pro4",
+				Manufacture = "Hope",
+				Price = 199.90M
+			};
 
 			partRepo.Add(part);
 
