@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CycleTracker.Data.Models;
 using CycleTracker.Data.Models.EnumTypes;
 using CycleTracker.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CycleTracker.API.Controllers
 {
