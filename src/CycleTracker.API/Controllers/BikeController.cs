@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CycleTracker.Data.Models;
+using CycleTracker.Data.Models.EnumTypes;
 using CycleTracker.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,15 +22,37 @@ namespace CycleTracker.API.Controllers
 		public IEnumerable<Bike> GetInit()
 		{
 			var partRepo = new PartRepository();
-			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper", Colors = "Black / Green", Trim = " FSR Evo Comp 650b", Year = 2015 };
+			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
 
 			bike.Id = bikeRepository.Add(bike);
 
-			var part = new Part { BikeId = bike.Id, Description = "Hope Pro 4 with Stans No Tubes ZTR Hoops", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Front Wheel" };
+			var part = new Part
+			{
+				BikeId = bike.Id,
+				PartType = PartType.FrontHub,
+				Description = "Blue",
+				InstalledBikeMileage = 3,
+				InstalledDate = DateTime.UtcNow,
+				Retailer = "Eddy's",
+				Model = "Pro4",
+				Manufacture = "Hope",
+				Price = 199.90M
+			};
 
 			partRepo.Add(part);
 
-			part = new Part { BikeId = bike.Id, Description = "Hope Pro 4 with Stans No Tubes ZTR Hoops", InstalledBikeMileage = 3, InstalledDate = DateTime.UtcNow, Retailer = "Eddy's", Name = "Rear Wheel" };
+			part = new Part
+			{
+				BikeId = bike.Id,
+				PartType = PartType.RearHub,
+				Description = "Blue",
+				InstalledBikeMileage = 3,
+				InstalledDate = DateTime.UtcNow,
+				Retailer = "Eddy's",
+				Model = "Pro4",
+				Manufacture = "Hope",
+				Price = 199.90M
+			};
 
 			partRepo.Add(part);
 
