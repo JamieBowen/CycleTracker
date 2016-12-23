@@ -4,10 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using CycleTracker.Data.Models;
-using CycleTracker.Data.Repositories.Base;
 using Dapper;
 
-namespace CycleTracker.Data.Repositories
+namespace CycleTracker.Data.Repositories.Base
 {
 	public interface IRepository<T>
 	{
@@ -82,7 +81,7 @@ namespace CycleTracker.Data.Repositories
 			IEnumerable<T> items = null;
 
 			// extract the dynamic sql query and parameters from predicate
-			var result = Helpers.DynamicQuery.GetDynamicQuery(_tableName, predicate);
+			Helpers.QueryResult result = Helpers.DynamicQuery.GetDynamicQuery(_tableName, predicate);
 
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{

@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CycleTracker.Data.Attributes;
 
 namespace CycleTracker.Data.Helpers
 {
@@ -25,7 +26,11 @@ namespace CycleTracker.Data.Helpers
 		public static string GetInsertQuery(string tableName, dynamic item)
 		{
 			PropertyInfo[] props = item.GetType().GetProperties();
-			string[] columns = props.Select(p => p.Name).Where(s => s != "Id").ToArray();
+			string[] columns = props.Where(p => 
+							p.CustomAttributes.All(a => a.AttributeType != typeof(IgnoreAttribute))
+						)
+						.Select(p => p.Name)
+						.Where(s => s != "Id").ToArray();
 
 			return string.Format("INSERT INTO {0} ({1}) VALUES (@{2}); SELECT last_insert_rowid();",
 								 tableName,
@@ -44,7 +49,9 @@ namespace CycleTracker.Data.Helpers
 		public static string GetUpdateQuery(string tableName, dynamic item)
 		{
 			PropertyInfo[] props = item.GetType().GetProperties();
-			string[] columns = props.Select(p => p.Name).ToArray();
+			string[] columns = props.Where(p =>
+							p.CustomAttributes.All(a => a.AttributeType != typeof(IgnoreAttribute))
+						).Select(p => p.Name).ToArray();
 
 			var parameters = columns.Select(name => name + "=@" + name).ToList();
 
