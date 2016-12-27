@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using CycleTracker.Data.Models;
 using Dapper;
 
@@ -103,6 +104,145 @@ namespace CycleTracker.Data.Repositories.Base
 			}
 
 			return items;
+		}
+
+		/// <summary>
+		/// Used to pull single child object and its parent.
+		/// </summary>
+		/// <typeparam name="T2"></typeparam>
+		/// <param name="query"></param>
+		/// <param name="idParam"></param>
+		/// <returns></returns>
+		internal virtual T FindIncluding<T2>(string query, long idParam)
+		{
+			return FindAllIncludingInternal<T2>(query, idParam).FirstOrDefault();
+		}
+
+		/// <summary>
+		/// User to pull a single child object and its parent.
+		/// </summary>
+		/// <typeparam name="T2"></typeparam>
+		/// <param name="query"></param>
+		/// <returns></returns>
+		internal virtual IEnumerable<T> FindAllIncluding<T2>(string query)
+		{
+			return FindAllIncludingInternal<T2>(query, null);
+		}
+
+		private IEnumerable<T> FindAllIncludingInternal<T2>(string query, long? idParam)
+		{
+			object param = null;
+			if (idParam.HasValue)
+			{
+				param = new { Id = idParam };
+			}
+			
+			var lookup = new Dictionary<long, T>();
+			IEnumerable<T> returnList = new List<T>();
+			
+			using (IDbConnection cn = CycleTrackerDbConnection())
+			{
+				cn.Open();
+
+				returnList = cn.Query<T, T2, T>(query, (T baseObj, T2 inclusionObj) =>
+				{
+					T obj;
+
+					if (!lookup.TryGetValue(baseObj.Id, out obj))
+					{
+						lookup.Add(baseObj.Id, obj = baseObj);
+					}
+
+					var props = obj.GetType().GetProperties();
+
+					var prop = props.FirstOrDefault(p => p.PropertyType == typeof(T2));
+
+					if (prop == null)
+					{
+						throw new Exception("There is no property of (T2) on the base return type.");
+					}
+
+					prop.SetValue(obj, inclusionObj);
+
+					return obj;
+				},
+					param).AsEnumerable();
+			}
+
+			return returnList;
+		}
+
+		/// <summary>
+		/// Used to pull a collection of children and its parent.
+		/// </summary>
+		/// <typeparam name="T2"></typeparam>
+		/// <param name="query"></param>
+		/// <param name="idParam"></param>
+		/// <returns></returns>
+		internal virtual T FindIncludingList<T2>(string query, long idParam)
+		{
+			return FindAllIncludingListInternal<T2>(query, idParam).FirstOrDefault();
+		}
+
+		/// <summary>
+		/// Used to pull a collection of children and its parent.
+		/// </summary>
+		/// <typeparam name="T2"></typeparam>
+		/// <param name="query"></param>
+		/// <returns></returns>
+		internal virtual IEnumerable<T> FindAllIncludingList<T2>(string query)
+		{
+			return FindAllIncludingListInternal<T2>(query, null);
+		}
+
+		private IEnumerable<T> FindAllIncludingListInternal<T2>(string query, long? idParam)
+		{
+			object param = null;
+			if (idParam.HasValue)
+			{
+				param = new { Id = idParam };
+			}
+
+
+			var lookup = new Dictionary<long, T>();
+			IEnumerable<T> returnList = new List<T>();
+
+
+
+			using (IDbConnection cn = CycleTrackerDbConnection())
+			{
+				cn.Open();
+
+				returnList = cn.Query<T, T2, T>(query, (T baseObj, T2 inclusionObj) =>
+				{
+					T obj;
+
+					if (!lookup.TryGetValue(baseObj.Id, out obj))
+					{
+						lookup.Add(baseObj.Id, obj = baseObj);
+					}
+
+					var props = obj.GetType().GetProperties();
+
+					var prop = props.FirstOrDefault(p => p.PropertyType == typeof(List<T2>));
+
+					if (prop == null)
+					{
+						throw new Exception("There is no property of (List<T2>) on the base return type.");
+					}
+
+					var childList = prop.GetValue(obj) as List<T2> ?? new List<T2>();
+
+					childList.Add(inclusionObj);
+
+					prop.SetValue(obj, childList);
+
+					return obj;
+				},
+					param).AsEnumerable();
+			}
+
+			return returnList;
 		}
 	}
 }
