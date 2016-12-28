@@ -47,14 +47,23 @@ namespace CycleTracker.Data.Repositories.Base
                     Description          TEXT null,
 					Price                NUMERIC null,
 					UpcCode				 TEXT null,
+					PartType             INTEGER not null
+                )"
+			);
+
+			connection.Execute(
+				@"create table BikeParts
+                (
+					Id                   INTEGER primary key,
                     InstalledDate        TEXT not null,
 					InstalledBikeMileage INTEGER not null,
 					ReplacedDate         TEXT null,
 					ReplacedBikeMileage  INTEGER null,
 					AccruedMileage       INTEGER null,
-					Retailer			 TEXT null,
-					PartType             INTEGER not null,
-					BikeId				 INTEGER not null
+					PurchasePrice        NUMERIC null,
+					PurchaseRetailer     TEXT null,
+					BikeId				 INTEGER not null,
+                    PartId				 INTEGER not null
                 )"
 			);
 		}

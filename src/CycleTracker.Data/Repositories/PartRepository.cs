@@ -8,17 +8,11 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IPartRepository : IRepository<Part>
 	{
-		IEnumerable<Part> GetPartsByBike(long bikeId);
 	}
 
 	public class PartRepository : CycleTrackerBaseRepository<Part>, IPartRepository
     {
 	    public PartRepository() : base("Parts")
-	    {}
-
-	    public IEnumerable<Part> GetPartsByBike(long bikeId)
-	    {
-		    return base.Find(part => part.BikeId == bikeId);
-	    }
+	    {}	
     }
 }

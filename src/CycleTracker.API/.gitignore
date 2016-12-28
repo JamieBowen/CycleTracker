@@ -6,6 +6,7 @@
 /bin
 /Data
 /obj
+/wwwroot
 
 # dependencies
 /node_modules

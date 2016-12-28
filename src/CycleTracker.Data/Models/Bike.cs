@@ -11,6 +11,6 @@ namespace CycleTracker.Data.Models
 		public string Trim { get; set; }
 		public string Colors { get; set; }
 		[Ignore]
-		public virtual List<Part> BikeParts { get; set; }
+		public virtual List<BikePart> BikeParts { get; set; }
 	}
 }

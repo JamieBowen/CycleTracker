@@ -22,18 +22,15 @@ namespace CycleTracker.API.Controllers
 		public IEnumerable<Bike> GetInit()
 		{
 			var partRepo = new PartRepository();
+			var bikePartRepo = new BikePartRepository();
 			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
 
 			bike.Id = bikeRepository.Add(bike);
 
 			var part = new Part
 			{
-				BikeId = bike.Id,
 				PartType = PartType.FrontHub,
 				Description = "Blue",
-				InstalledBikeMileage = 3,
-				InstalledDate = DateTime.UtcNow,
-				Retailer = "Eddy's",
 				Model = "Pro4",
 				Manufacture = "Hope",
 				Price = 199.90M
@@ -43,18 +40,31 @@ namespace CycleTracker.API.Controllers
 
 			part = new Part
 			{
-				BikeId = bike.Id,
 				PartType = PartType.RearHub,
 				Description = "Blue",
-				InstalledBikeMileage = 3,
-				InstalledDate = DateTime.UtcNow,
-				Retailer = "Eddy's",
 				Model = "Pro4",
 				Manufacture = "Hope",
 				Price = 199.90M
 			};
 
 			partRepo.Add(part);
+
+			var parts = partRepo.FindAll();
+
+			foreach (var prt in parts)
+			{
+				var bkePart = new BikePart()
+				{
+					BikeId = bike.Id,
+					PartId = prt.Id,
+					InstalledDate = DateTime.UtcNow,
+					InstalledBikeMileage = 3,
+					PurchasePrice = 180.00M,
+					PurchaseRetailer = "Chain Reaction Cycles"
+				};
+
+				bikePartRepo.Add(bkePart);
+			}
 
 			return bikeRepository.FindAll();
 		}
@@ -77,7 +87,7 @@ namespace CycleTracker.API.Controllers
 		[HttpGet("withparts/{id}")]
 		public Bike GetWithParts(long id)
 		{
-			return bikeRepository.GetBikeWithParts(id);
+			return bikeRepository.GetBikeWithBikeParts(id);
 		}
 
 		// POST api/Bike

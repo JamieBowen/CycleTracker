@@ -43,6 +43,7 @@ namespace CycleTracker.API
 			//dep injection
 	        services.AddSingleton<Data.Repositories.IBikeRepository, Data.Repositories.BikeRepository>();
 	        services.AddSingleton<Data.Repositories.IPartRepository, Data.Repositories.PartRepository>();
+	        services.AddSingleton<Data.Repositories.IBikePartRepository, Data.Repositories.BikePartRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
