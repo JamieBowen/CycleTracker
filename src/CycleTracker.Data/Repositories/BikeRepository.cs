@@ -25,7 +25,7 @@ namespace CycleTracker.Data.Repositories
 							INNER JOIN BikeParts p
                             ON b.Id = p.BikeId
 							WHERE b.Id = @Id";
-
+			
 		    return base.FindIncludingList<BikePart>(dbQuery, id);
 	    }
     }
