@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Sockets;
-using CycleTracker.Data.Models.EnumTypes;
+﻿using CycleTracker.Data.Models.EnumTypes;
 
 namespace CycleTracker.Data.Models
 {
