@@ -32,7 +32,7 @@ namespace CycleTracker.API.Controllers
 				PartType = PartType.FrontHub,
 				Description = "Blue",
 				Model = "Pro4",
-				Manufacture = "Hope",
+				Manufacturer = "Hope",
 				Price = 199.90M
 			};
 
@@ -43,7 +43,7 @@ namespace CycleTracker.API.Controllers
 				PartType = PartType.RearHub,
 				Description = "Blue",
 				Model = "Pro4",
-				Manufacture = "Hope",
+				Manufacturer = "Hope",
 				Price = 199.90M
 			};
 
