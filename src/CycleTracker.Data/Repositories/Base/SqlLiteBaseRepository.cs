@@ -42,8 +42,8 @@ namespace CycleTracker.Data.Repositories.Base
 				@"create table Parts
                 (
 					Id                   INTEGER primary key,
-					Manufacture          TEXT not null,
-                    Model                 TEXT not null,
+					Manufacturer         TEXT not null,
+                    Model                TEXT not null,
                     Description          TEXT null,
 					Price                NUMERIC null,
 					UpcCode				 TEXT null,
