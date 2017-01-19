@@ -21,55 +21,37 @@ namespace CycleTracker.API.Controllers
 		[HttpGet("init")]
 		public IEnumerable<Bike> GetInit()
 		{
+			var riderRepo = new RiderRepository();
 			var partRepo = new PartRepository();
 			var bikePartRepo = new BikePartRepository();
-			var bike = new Bike { Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
 
-			bike.Id = bikeRepository.Add(bike);
+			var jamie = InitRiderJamie();
+			riderRepo.Add(jamie);
 
-			var part = new Part
-			{
-				PartType = PartType.FrontHub,
-				Description = "Blue",
-				Model = "Pro4",
-				Manufacture = "Hope",
-				Price = 199.90M
-			};
+			var roubaix = InitBikeRoubaix(jamie);
+			bikeRepository.Add(roubaix);
+			
+			var jeff = InitRiderJeff();
+			riderRepo.Add(jeff);
 
-			partRepo.Add(part);
-
-			part = new Part
-			{
-				PartType = PartType.RearHub,
-				Description = "Blue",
-				Model = "Pro4",
-				Manufacture = "Hope",
-				Price = 199.90M
-			};
-
-			partRepo.Add(part);
+			var stumpJumper = InitBikeStumpJumper(jeff);
+			stumpJumper.Id = bikeRepository.Add(stumpJumper);
+			
+			partRepo.Add(InitPartFrontHub());
+			partRepo.Add(InitPartRearHub());
 
 			var parts = partRepo.FindAll();
 
-			foreach (var prt in parts)
+			foreach (var part in parts)
 			{
-				var bkePart = new BikePart()
-				{
-					BikeId = bike.Id,
-					PartId = prt.Id,
-					InstalledDate = DateTime.UtcNow,
-					InstalledBikeMileage = 3,
-					PurchasePrice = 180.00M,
-					PurchaseRetailer = "Chain Reaction Cycles"
-				};
-
-				bikePartRepo.Add(bkePart);
+				var bikePart = InitBikePart(stumpJumper, part);
+				bikePartRepo.Add(bikePart);
 			}
 
 			return bikeRepository.FindAll();
 		}
 
-		// GET: api/Bike
+	    // GET: api/Bike
 		[HttpGet]
         public IEnumerable<Bike> Get()
         {
@@ -111,5 +93,41 @@ namespace CycleTracker.API.Controllers
         {
 			bikeRepository.Remove(id);
         }
-    }
+
+
+		private static BikePart InitBikePart(Bike bike, Part part)
+		{
+			return new BikePart { BikeId = bike.Id, PartId = part.Id, InstalledDate = DateTime.UtcNow, InstalledBikeMileage = 3, PurchasePrice = 180.00M, PurchaseRetailer = "Chain Reaction Cycles" };
+		}
+
+		private static Part InitPartRearHub()
+		{
+			return new Part { PartType = PartType.RearHub, Description = "Blue", Model = "Pro4", Manufacturer = "Hope", Price = 199.90M };
+		}
+
+		private static Part InitPartFrontHub()
+		{
+			return new Part { PartType = PartType.FrontHub, Description = "Blue", Model = "Pro4", Manufacturer = "Hope", Price = 199.90M };
+		}
+
+		private static Bike InitBikeStumpJumper(Rider jeff)
+		{
+			return new Bike { RiderId = jeff.Id, Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
+		}
+
+		private static Rider InitRiderJeff()
+		{
+			return new Rider { Email = "jeff@cycletracker.com", LastName = "Beck", FirstName = "Jeff" };
+		}
+
+		private static Bike InitBikeRoubaix(Rider jamie)
+		{
+			return new Bike { RiderId = jamie.Id, Make = "Specialized", Model = "Roubaix", Trim = "SL2", Colors = "Black/Red", Year = 2013 };
+		}
+
+		private static Rider InitRiderJamie()
+		{
+			return new Rider { Email = "jamie@cycletracker.com", LastName = "Bowen", FirstName = "Jamie" };
+		}
+	}
 }
