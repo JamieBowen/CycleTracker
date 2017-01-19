@@ -29,8 +29,9 @@
 		RearShock = 25,
 		Axle = 26,
 		Spoke = 27,
-		StiShifter = 28,
+		Brifter = 28,
 		Stem = 29,
+		Other = 30,
 	}
 	
 }
