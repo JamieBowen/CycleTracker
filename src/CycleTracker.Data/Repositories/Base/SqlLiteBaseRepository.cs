@@ -26,6 +26,17 @@ namespace CycleTracker.Data.Repositories.Base
 		{
 			Directory.CreateDirectory(DbFileDirectory);
 			connection.Open();
+
+			connection.Execute(
+				@"create table Riders
+				(
+					Id					INTEGER primary key,
+					Email				TEXT not null,
+					LastName			TEXT not null,
+					FirstName			TEXT not null,
+				)"
+			);
+
 			connection.Execute(
 				@"create table Bikes
                 (
