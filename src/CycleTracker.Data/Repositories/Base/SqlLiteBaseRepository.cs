@@ -33,7 +33,7 @@ namespace CycleTracker.Data.Repositories.Base
 					Id					INTEGER primary key,
 					Email				TEXT not null,
 					LastName			TEXT not null,
-					FirstName			TEXT not null,
+					FirstName			TEXT not null
 				)"
 			);
 
@@ -45,7 +45,8 @@ namespace CycleTracker.Data.Repositories.Base
                     Model               TEXT not null,
                     Year                INTEGER not null,
 					Trim	            TEXT null,
-					Colors     	        TEXT null
+					Colors     	        TEXT null,
+					RiderId				INTEGER not null
                 )"
 			);
 

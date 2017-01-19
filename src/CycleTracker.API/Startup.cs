@@ -37,7 +37,8 @@ namespace CycleTracker.API
             services.AddMvc();
 
 			//dep injection
-	        services.AddSingleton<Data.Repositories.IBikeRepository, Data.Repositories.BikeRepository>();
+			services.AddSingleton<Data.Repositories.IRiderRepository, Data.Repositories.RiderRepository>();
+			services.AddSingleton<Data.Repositories.IBikeRepository, Data.Repositories.BikeRepository>();
 	        services.AddSingleton<Data.Repositories.IPartRepository, Data.Repositories.PartRepository>();
 	        services.AddSingleton<Data.Repositories.IBikePartRepository, Data.Repositories.BikePartRepository>();
         }
