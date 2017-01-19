@@ -40,7 +40,9 @@ namespace CycleTracker.Data.Repositories.Base
 				var parameters = (object)Mapping(item);
 				cn.Open();
 				var insertQuery = Helpers.DynamicQuery.GetInsertQuery(_tableName, parameters);
-				return (long)cn.ExecuteScalar(insertQuery, parameters);
+				var id = (long)cn.ExecuteScalar(insertQuery, parameters);
+				item.Id = id;
+				return id;
 			}
 		}
 

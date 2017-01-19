@@ -28,6 +28,13 @@ namespace CycleTracker.API.Controllers
 		{
 			return riderRepository.FindById(id);
 		}
+
+		// GET api/Rider/bikes/5
+		[HttpGet("withbikes/{id}")]
+		public Rider GetWithBikes(long id)
+		{
+			return riderRepository.GetRiderWithBikes(id);
+		}
 		
 		// POST api/Rider
 		[HttpPost]
