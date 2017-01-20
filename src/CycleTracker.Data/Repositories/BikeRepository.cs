@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using CycleTracker.Data.Models;
+﻿using CycleTracker.Data.Models;
 using CycleTracker.Data.Repositories.Base;
-using Dapper;
 
 namespace CycleTracker.Data.Repositories
 {
