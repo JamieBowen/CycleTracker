@@ -1,5 +1,9 @@
-﻿using CycleTracker.Data.Models;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using CycleTracker.Data.Models;
 using CycleTracker.Data.Repositories.Base;
+using Dapper;
 
 namespace CycleTracker.Data.Repositories
 {
@@ -14,13 +18,28 @@ namespace CycleTracker.Data.Repositories
 
 		public Rider GetRiderWithBikes(long id)
 		{
-			var dbQuery = @"SELECT r.*, b.* 
-							FROM Riders r 
-							INNER JOIN Bikes b
-                            ON r.Id = b.RiderId
-							WHERE r.Id = @Id";
+			const string sql = @"
+				SELECT * FROM Riders where Id = @id; 
+				SELECT * FROM RiderBikes rb JOIN Bikes b ON b.Id = rb.BikeId WHERE rb.RiderId = @id;	
+			";
+			Rider rider = null;
 
-			return base.FindIncludingList<Bike>(dbQuery, id);
+			// TODO: abstract 'QueryMultiple' logic to base repository
+			using (IDbConnection cn = CycleTrackerDbConnection())
+			{
+
+				using (var multi = cn.QueryMultiple(sql, new {id = id}))
+				{
+					rider = multi.ReadSingle<Rider>();
+					rider.RiderBikes = multi.Read<RiderBike, Bike, RiderBike>((riderBike, bike) =>
+					{
+						riderBike.Bike = bike;
+						return riderBike;
+					}).ToList();
+				}
+			}
+
+			return rider;
 		}
 	}
 }

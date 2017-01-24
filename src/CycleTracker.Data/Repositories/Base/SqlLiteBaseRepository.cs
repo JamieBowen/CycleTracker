@@ -39,44 +39,52 @@ namespace CycleTracker.Data.Repositories.Base
 
 			connection.Execute(
 				@"create table Bikes
-                (
+				(
 					Id                  INTEGER primary key,
-                    Make                TEXT not null,
-                    Model               TEXT not null,
-                    Year                INTEGER not null,
+					Make                TEXT not null,
+					Model               TEXT not null
+				)"
+			);
+
+			connection.Execute(
+				@"create table RiderBikes
+				(
+					Id                  INTEGER primary key,
+					Year                INTEGER not null,
 					Trim	            TEXT null,
 					Colors     	        TEXT null,
-					RiderId				INTEGER not null
-                )"
+					RiderId				INTEGER not null,
+					BikeId				INTEGER not null
+				)"
 			);
 
 			connection.Execute(
 				@"create table Parts
-                (
+				(
 					Id                   INTEGER primary key,
 					Manufacturer         TEXT not null,
-                    Model                TEXT not null,
-                    Description          TEXT null,
+					Model                TEXT not null,
+					Description          TEXT null,
 					Price                NUMERIC null,
 					UpcCode				 TEXT null,
 					PartType             INTEGER not null
-                )"
+				)"
 			);
 
 			connection.Execute(
 				@"create table BikeParts
-                (
+				(
 					Id                   INTEGER primary key,
-                    InstalledDate        TEXT not null,
+					InstalledDate        TEXT not null,
 					InstalledBikeMileage INTEGER not null,
 					ReplacedDate         TEXT null,
 					ReplacedBikeMileage  INTEGER null,
 					AccruedMileage       INTEGER null,
 					PurchasePrice        NUMERIC null,
 					PurchaseRetailer     TEXT null,
-					BikeId				 INTEGER not null,
-                    PartId				 INTEGER not null
-                )"
+					RiderBikeId		     INTEGER not null,
+					PartId				 INTEGER not null
+				)"
 			);
 		}
 	}

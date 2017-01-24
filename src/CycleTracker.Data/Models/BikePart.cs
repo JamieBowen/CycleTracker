@@ -12,7 +12,7 @@ namespace CycleTracker.Data.Models
 		public int AccruedMileage { get; set; }
 	    public decimal PurchasePrice { get; set; }
 	    public string PurchaseRetailer { get; set; }
-		public long BikeId { get; set; }
+		public long RiderBikeId { get; set; }
 	    public long PartId { get; set; }
 
 		[Ignore]

@@ -22,10 +22,10 @@ namespace CycleTracker.Data.Repositories.Base
 	public abstract class CycleTrackerBaseRepository<T> : SqLiteBaseRepository, IRepository<T> where T : CycleTrackerBase
 	{
 		private readonly string _tableName;
-		
-	    public CycleTrackerBaseRepository(string tableName)
-	    {
-		    _tableName = tableName;
+
+		public CycleTrackerBaseRepository(string tableName)
+		{
+			_tableName = tableName;
 		}
 
 		internal virtual dynamic Mapping(T item)
@@ -138,10 +138,10 @@ namespace CycleTracker.Data.Repositories.Base
 			{
 				param = new { Id = idParam };
 			}
-			
+
 			var lookup = new Dictionary<long, T>();
 			IEnumerable<T> returnList = new List<T>();
-			
+
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				cn.Open();
