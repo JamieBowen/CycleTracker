@@ -15,9 +15,10 @@ namespace CycleTracker.Data.Repositories
 		public BikePartRepository() : base("BikeParts")
 	    {
 		}
-		public IEnumerable<BikePart> GetBikePartsByBike(long bikeId)
+
+		public IEnumerable<BikePart> GetBikePartsByBike(long riderBikeId)
 		{
-			return base.Find(part => part.BikeId == bikeId);
+			return base.Find(part => part.RiderBikeId == riderBikeId);
 		}
 
 		public BikePart GetBikePartWithPart(long bikePartId)
@@ -30,6 +31,7 @@ namespace CycleTracker.Data.Repositories
 
 			return FindIncluding<Part>(dbQuery, bikePartId);
 		}
+
 		public IEnumerable<BikePart> GetBikePartsByBikeWithPart(long bikeId)
 		{
 			var dbQuery = @"SELECT bp.*, p.* 
