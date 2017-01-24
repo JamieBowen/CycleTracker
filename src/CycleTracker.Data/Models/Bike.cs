@@ -1,7 +1,4 @@
-﻿using CycleTracker.Data.Attributes;
-using System.Collections.Generic;
-
-namespace CycleTracker.Data.Models
+﻿namespace CycleTracker.Data.Models
 {
 	public class Bike : CycleTrackerBase
 	{

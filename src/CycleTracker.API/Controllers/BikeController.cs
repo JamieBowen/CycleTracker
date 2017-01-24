@@ -3,70 +3,65 @@ using System.Collections.Generic;
 using CycleTracker.Data.Models;
 using CycleTracker.Data.Models.EnumTypes;
 using CycleTracker.Data.Repositories;
+using CycleTracker.Data.Repositories.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CycleTracker.API.Controllers
 {
-    [Route("api/[controller]")]
-    public class BikeController : Controller
-    {
-	    private readonly IBikeRepository bikeRepository;
+	[Route("api/[controller]")]
+	public class BikeController : Controller
+	{
+		private readonly IBikeRepository bikeRepository;
 
-	    public BikeController(Data.Repositories.IBikeRepository bikeRepository)
-	    {
-		    this.bikeRepository = bikeRepository;
-	    }
+		public BikeController(IBikeRepository bikeRepository)
+		{
+			this.bikeRepository = bikeRepository;
+		}
 
 		// GET: api/Bike/init
 		[HttpGet("init")]
 		public IEnumerable<Bike> GetInit()
 		{
 			var riderRepo = new RiderRepository();
+			var riderBikeRepo = new RiderBikeRepository();
 			var partRepo = new PartRepository();
 			var bikePartRepo = new BikePartRepository();
 
-			var jamie = InitRiderJamie();
-			riderRepo.Add(jamie);
-
-			var roubaix = InitBikeRoubaix(jamie);
-			bikeRepository.Add(roubaix);
+			var jamie = InitRider(riderRepo, "jamie@cycletracker.com", "Bowen", "Jamie");
+			var roubaix = InitBike(bikeRepository, "Specialized", "Roubaix");
+			var trek = InitBike(bikeRepository, "Trek", "7500");
+			var jamiesRoubaix = InitRiderBike(riderBikeRepo, jamie, roubaix, "Black/Red", "SL2", 2013);
+			var jamiesTrek = InitRiderBike(riderBikeRepo, jamie, trek, "Black/Silver", "", 2011);
 			
-			var jeff = InitRiderJeff();
-			riderRepo.Add(jeff);
-
-			var stumpJumper = InitBikeStumpJumper(jeff);
-			stumpJumper.Id = bikeRepository.Add(stumpJumper);
+			var jeff = InitRider(riderRepo, "jeff@cycletracker.com", "Beck", "Jeff");
+			var stumpJumper = InitBike(bikeRepository, "Specialized", "Stumpjumper FSR Evo");
+			var jeffsStumpJumper = InitRiderBike(riderBikeRepo, jeff, stumpJumper, "Black/Yellow", "Comp 650b", 2015);
 			
-			partRepo.Add(InitPartFrontHub());
-			partRepo.Add(InitPartRearHub());
-
-			var parts = partRepo.FindAll();
-
-			foreach (var part in parts)
-			{
-				var bikePart = InitBikePart(stumpJumper, part);
-				bikePartRepo.Add(bikePart);
-			}
+			var frontHub = InitPart(partRepo, PartType.FrontHub, "Blue", "Pro4", "Hope", 199.90M);
+			var rearHub = InitPart(partRepo, PartType.RearHub, "Blue", "Pro4", "Hope", 199.90M);
+			
+			InitBikePart(bikePartRepo, jeffsStumpJumper, frontHub, DateTime.UtcNow, 3, 180.00M, "Chain Reaction Cycles");
+			InitBikePart(bikePartRepo, jeffsStumpJumper, rearHub, DateTime.UtcNow, 3, 180.00M, "Chain Reaction Cycles");
 
 			return bikeRepository.FindAll();
 		}
 
-	    // GET: api/Bike
+		// GET: api/Bike
 		[HttpGet]
-        public IEnumerable<Bike> Get()
-        {
+		public IEnumerable<Bike> Get()
+		{
 			return bikeRepository.FindAll();
-        }
+		}
 
 		// GET api/Bike/5
 		[HttpGet("{id}")]
-        public Bike Get(long id)
-        {
-            return bikeRepository.FindById(id);
-        }
+		public Bike Get(long id)
+		{
+			return bikeRepository.FindById(id);
+		}
 
-		// GET api/Bike/withparts/5
-		[HttpGet("withparts/{id}")]
+		// GET api/Bike/5/parts
+		[HttpGet("{id}/parts")]
 		public Bike GetWithParts(long id)
 		{
 			return bikeRepository.GetBikeWithBikeParts(id);
@@ -74,60 +69,75 @@ namespace CycleTracker.API.Controllers
 
 		// POST api/Bike
 		[HttpPost]
-        public Bike Post([FromBody]Bike value)
-        {
-	        var id = bikeRepository.Add(value);
-	        return bikeRepository.FindById(id);
-        }
+		public Bike Post([FromBody]Bike value)
+		{
+			var id = bikeRepository.Add(value);
+			return bikeRepository.FindById(id);
+		}
 
 		// PUT api/Bike/5
 		[HttpPut]
-        public void Put([FromBody]Bike value)
-        {
+		public void Put([FromBody]Bike value)
+		{
 			bikeRepository.Update(value);
-        }
+		}
 
 		// DELETE api/Bike/5
 		[HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+		public void Delete(int id)
+		{
 			bikeRepository.Remove(id);
-        }
-
-
-		private static BikePart InitBikePart(Bike bike, Part part)
-		{
-			return new BikePart { BikeId = bike.Id, PartId = part.Id, InstalledDate = DateTime.UtcNow, InstalledBikeMileage = 3, PurchasePrice = 180.00M, PurchaseRetailer = "Chain Reaction Cycles" };
 		}
 
-		private static Part InitPartRearHub()
+		private static Rider InitRider(IRiderRepository repository, string email, string lastName, string firstName)
 		{
-			return new Part { PartType = PartType.RearHub, Description = "Blue", Model = "Pro4", Manufacturer = "Hope", Price = 199.90M };
+			var rider = new Rider { Email = email, LastName = lastName, FirstName = firstName };
+			repository.Add(rider);
+			return rider;
 		}
 
-		private static Part InitPartFrontHub()
+		private static Bike InitBike(IBikeRepository repository, string make, string model)
 		{
-			return new Part { PartType = PartType.FrontHub, Description = "Blue", Model = "Pro4", Manufacturer = "Hope", Price = 199.90M };
+			var bike = new Bike { Make = make, Model = model };
+			repository.Add(bike);
+			return bike;
 		}
 
-		private static Bike InitBikeStumpJumper(Rider jeff)
+		private static RiderBike InitRiderBike(IRiderBikeRepository repository, Rider rider, Bike bike, string colors, string trim, int year)
 		{
-			return new Bike { RiderId = jeff.Id, Make = "Specialized", Model = "Stumpjumper FSR Evo", Colors = "Black / Yellow", Trim = "Comp 650b", Year = 2015 };
+			var riderBike = new RiderBike { RiderId = rider.Id, BikeId = bike.Id, Colors = colors, Trim = trim, Year = year };
+			repository.Add(riderBike);
+			return riderBike;
+		}
+		
+		private static Part InitPart(IPartRepository repository, PartType partType, string description, string model, string manufacturer, decimal price)
+		{
+			var part = new Part
+			{
+				PartType = partType,
+				Description = description,
+				Model = model,
+				Manufacturer = manufacturer,
+				Price = price
+			};
+			repository.Add(part);
+			return part;
 		}
 
-		private static Rider InitRiderJeff()
+		private static BikePart InitBikePart(BikePartRepository repository, RiderBike riderBike, Part part, DateTime installedDate, int installedMileage, decimal purchasePrice, string purchaseRetailer)
 		{
-			return new Rider { Email = "jeff@cycletracker.com", LastName = "Beck", FirstName = "Jeff" };
+			var bikePart = new BikePart
+			{
+				RiderBikeId = riderBike.Id,
+				PartId = part.Id,
+				InstalledDate = installedDate,
+				InstalledBikeMileage = installedMileage,
+				PurchasePrice = purchasePrice,
+				PurchaseRetailer = purchaseRetailer
+			};
+			repository.Add(bikePart);
+			return bikePart;
 		}
-
-		private static Bike InitBikeRoubaix(Rider jamie)
-		{
-			return new Bike { RiderId = jamie.Id, Make = "Specialized", Model = "Roubaix", Trim = "SL2", Colors = "Black/Red", Year = 2013 };
-		}
-
-		private static Rider InitRiderJamie()
-		{
-			return new Rider { Email = "jamie@cycletracker.com", LastName = "Bowen", FirstName = "Jamie" };
-		}
+		
 	}
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using CycleTracker.Data.Attributes;
 
 namespace CycleTracker.Data.Models
@@ -13,6 +10,6 @@ namespace CycleTracker.Data.Models
 		public string FirstName { get; set; }
 
 		[Ignore]
-		public virtual List<Bike> Bikes { get; set; }
+		public virtual List<RiderBike> RiderBikes { get; set; }
     }
 }
