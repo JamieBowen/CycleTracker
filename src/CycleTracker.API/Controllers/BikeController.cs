@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CycleTracker.Data.Models;
 using CycleTracker.Data.Models.EnumTypes;
 using CycleTracker.Data.Repositories;
-using CycleTracker.Data.Repositories.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CycleTracker.API.Controllers
