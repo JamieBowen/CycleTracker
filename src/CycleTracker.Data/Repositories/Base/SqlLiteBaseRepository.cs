@@ -53,6 +53,7 @@ namespace CycleTracker.Data.Repositories.Base
 					Year                INTEGER not null,
 					Trim	            TEXT null,
 					Colors     	        TEXT null,
+					Mileage		        INT null,
 					RiderId				INTEGER not null,
 					BikeId				INTEGER not null
 				)"
@@ -77,9 +78,9 @@ namespace CycleTracker.Data.Repositories.Base
 					Id                   INTEGER primary key,
 					InstalledDate        TEXT not null,
 					InstalledBikeMileage INTEGER not null,
+					InstalledBikeArea    INTEGER not null,
 					ReplacedDate         TEXT null,
 					ReplacedBikeMileage  INTEGER null,
-					AccruedMileage       INTEGER null,
 					PurchasePrice        NUMERIC null,
 					PurchaseRetailer     TEXT null,
 					RiderBikeId		     INTEGER not null,

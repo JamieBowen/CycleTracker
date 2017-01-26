@@ -8,6 +8,7 @@ namespace CycleTracker.Data.Models
 		public int Year { get; set; }
 		public string Trim { get; set; }
 		public string Colors { get; set; }
+		public int? Mileage { get; set; }
 		public long RiderId { get; set; }
 		public long BikeId { get; set; }
 
