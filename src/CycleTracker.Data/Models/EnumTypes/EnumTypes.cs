@@ -13,7 +13,7 @@
 		Pedal = 9,
 		Chain = 10,
 		ChainRing = 11,
-		Crank = 11,
+		Crankset = 11,
 		BottomBracket = 12,
 		HeadSet = 14,
 		Fork = 15,
@@ -33,5 +33,13 @@
 		Stem = 29,
 		Other = 30,
 	}
-	
+
+	public enum BikeArea
+	{
+		NotApplicable = 0,
+		Front = 1,
+		Rear = 2,
+		Left = 4,
+		Right = 8
+	}
 }
