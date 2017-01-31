@@ -29,6 +29,12 @@ namespace CycleTracker.API.Controllers
 			return _riderBikeRepository.FindById(id);
 		}
 
+		[HttpGet("forRider/{riderId}")]
+		public IEnumerable<RiderBike> GetForRider(long riderId)
+		{
+			return _riderBikeRepository.GetBikesForRider(riderId);
+		}
+
 		// GET api/RiderBike/5/parts
 		[HttpGet("{id}/parts")]
 		public RiderBike GetWithParts(long id)
