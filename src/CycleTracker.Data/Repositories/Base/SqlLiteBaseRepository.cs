@@ -13,7 +13,7 @@ namespace CycleTracker.Data.Repositories.Base
 		public static SqliteConnection CycleTrackerDbConnection()
 		{
 			var connection = new SqliteConnection("Data Source=" + DbFileLocation);
-
+			
 			if (!File.Exists(DbFileLocation))
 			{
 				CreateDatabase(connection);

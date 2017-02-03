@@ -7,8 +7,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { BikeInputComponent } from './bikes/bike-input.component';
 import { PartsComponent } from './parts/parts.component';
+import { BikePartsComponent } from './parts/bikeParts.component';
+import { RiderDataService } from './data/rider.service';
 import { BikeDataService } from './data/bike.service';
 import { PartDataService } from './data/part.service';
+import { BikePartDataService } from './data/bikePart.service';
 
 // import all operators during development
 // this runs a script that has side effects 
@@ -20,6 +23,7 @@ import 'rxjs/Rx';
     AppComponent,
     BikeInputComponent,
     PartsComponent,
+    BikePartsComponent,
     routingComponents,
   ],
   imports: [
@@ -29,8 +33,10 @@ import 'rxjs/Rx';
     AppRoutingModule,
   ],
   providers: [
+    RiderDataService,
     BikeDataService,
     PartDataService,
+    BikePartDataService,
   ],
   bootstrap: [AppComponent]
 })

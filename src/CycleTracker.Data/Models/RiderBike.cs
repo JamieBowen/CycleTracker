@@ -3,7 +3,7 @@ using CycleTracker.Data.Attributes;
 
 namespace CycleTracker.Data.Models
 {
-    public class RiderBike : CycleTrackerBase
+	public class RiderBike : CycleTrackerBase
 	{
 		public int Year { get; set; }
 		public string Trim { get; set; }

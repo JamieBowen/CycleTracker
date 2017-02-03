@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let bike of bikes | async"
+            <tr *ngFor="let bike of bikes"
                 (click)="onSelect(bike)">
                 <td>{{bike.make}}</td>
                 <td>{{bike.model}} {{bike.trim}}</td>

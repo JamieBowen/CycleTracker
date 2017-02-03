@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Linq;
 using CycleTracker.Data.Models;
 using CycleTracker.Data.Repositories.Base;
@@ -9,57 +8,54 @@ namespace CycleTracker.Data.Repositories
 {
 	public interface IRiderBikeRepository : IRepository<RiderBike>
 	{
-		RiderBike GetBikeWithParts(long riderBikeId);
-		IEnumerable<RiderBike> GetBikesForRider(long riderId);
+		RiderBike GetWithBike(long id);
+		RiderBike GetRiderBikeWithParts(long riderBikeId);
 	}
 
 	public class RiderBikeRepository : CycleTrackerBaseRepository<RiderBike>, IRiderBikeRepository
 	{
 		public RiderBikeRepository() : base("RiderBikes") { }
-		
-		public RiderBike GetBikeWithParts(long id)
+
+		public RiderBike GetWithBike(long id)
+		{
+			const string sql = "SELECT * FROM RiderBikes rb JOIN Bikes b ON b.Id = rb.BikeId where rb.Id = @Id;";
+			
+			using (IDbConnection cn = CycleTrackerDbConnection())
+			{
+				return cn.Query<RiderBike, Bike, RiderBike>(sql, MapRiderBike, new {Id = id}).Single();
+			}
+		}
+
+		public RiderBike GetRiderBikeWithParts(long id)
 		{
 			const string sql = @"
 				SELECT * FROM RiderBikes rb JOIN Bikes b ON b.Id = rb.BikeId where rb.Id = @Id; 
 				SELECT * FROM BikeParts bp JOIN Parts p ON p.Id = bp.PartId WHERE bp.RiderBikeId = @Id;	
 			";
-			RiderBike data = null;
+			RiderBike riderBike = null;
 
-			// TODO: abstract 'QueryMultiple' logic to base repository
 			using (IDbConnection cn = CycleTrackerDbConnection())
 			{
 				using (var multi = cn.QueryMultiple(sql, new { Id = id }))
 				{
-					data = multi.Read<RiderBike, Bike, RiderBike>((riderBike, bike) =>
-					{
-						riderBike.Bike = bike;
-						return riderBike;
-					}).Single();
-
-					data.BikeParts = multi.Read<BikePart, Part, BikePart>((bikePart, part) =>
-					{
-						bikePart.Part = part;
-						return bikePart;
-					}).ToList();
+					riderBike = multi.Read<RiderBike, Bike, RiderBike>(MapRiderBike).Single();
+					riderBike.BikeParts = multi.Read<BikePart, Part, BikePart>(MapBikePart).ToList();
 				}
 			}
 
-			return data;
+			return riderBike;
 		}
 
-		public IEnumerable<RiderBike> GetBikesForRider(long riderId)
+		private static RiderBike MapRiderBike(RiderBike riderBike, Bike bike)
 		{
-			const string sql = "SELECT * FROM RiderBikes rb JOIN Bikes b ON b.Id = rb.BikeId where rb.RiderId = @Id;";
-			var param = new { Id = riderId };
+			riderBike.Bike = bike;
+			return riderBike;
+		}
 
-			using (IDbConnection cn = CycleTrackerDbConnection())
-			{
-				return cn.Query(sql, (RiderBike riderBike, Bike bike) =>
-				{
-					riderBike.Bike = bike;
-					return riderBike;
-				}, param).AsEnumerable();
-			}
+		private static BikePart MapBikePart(BikePart bikePart, Part part)
+		{
+			bikePart.Part = part;
+			return bikePart;
 		}
 	}
 }

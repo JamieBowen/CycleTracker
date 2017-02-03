@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { IPart } from './part.model';
+import { IBikePart } from './bikePart.model';
 
 @Injectable()
-export class PartDataService {
-    private baseUrl: string = '/api/part';
+export class BikePartDataService {
+    private baseUrl: string = '/api/bikepart';
 
     constructor(private http: Http) { }
 
-    get(id: number): Observable<IPart> {
+    get(id: number): Observable<IBikePart> {
         return this.http.get(`${this.baseUrl}/${id}`)
             .map((response: any) => response.json());
     }

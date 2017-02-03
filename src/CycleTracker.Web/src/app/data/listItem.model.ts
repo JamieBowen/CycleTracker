@@ -1,4 +1,4 @@
 export interface IListItem {
-    value: number,
-    text: string,
+    value: number;
+    text: string;
 }

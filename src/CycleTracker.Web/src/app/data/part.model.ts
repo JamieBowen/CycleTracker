@@ -1,5 +1,3 @@
-import { PartType } from './enums';
-
 export interface IPart
 {
     id: number;
@@ -8,5 +6,5 @@ export interface IPart
     description: string;
     price: number;
     upcCode: string;
-    partType: PartType;
-}
+    partType: number;
+} 

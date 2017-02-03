@@ -17,8 +17,13 @@ export class BikeDataService {
 
     get(id: number): Observable<IBike> {
         return this.http.get(`${this.baseUrl}/${id}`)
-            .map((response: Response) => response.json());            
-    }    
+            .map((response: Response) => response.json()); 
+    }   
+
+    getWithParts(id: number): Observable<IBike> {
+        return this.http.get(`${this.baseUrl}/${id}/parts`)
+            .map((response: Response) => response.json()); 
+    } 
 
     add(bike: IBike): Observable<IBike> {
         return this.http.post(this.baseUrl, bike)

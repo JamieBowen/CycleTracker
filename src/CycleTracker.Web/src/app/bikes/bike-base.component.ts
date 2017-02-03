@@ -2,22 +2,19 @@ import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BikeDataService } from '../data/bike.service';
-import { IBike } from '../data/bike.model';
+import { IRiderBike } from '../data/riderBike.model';
 
 export abstract class BikeComponentBase implements OnInit {
-    bike: IBike = <any>{};
-    protected bikeService: BikeDataService;
+    bike: IRiderBike = <any>{};
 
     constructor(
-        bikeService: BikeDataService,
+        protected bikeService: BikeDataService,
         private route: ActivatedRoute,
-    ) { 
-        this.bikeService = bikeService;
-    }
+    ) { }
 
     ngOnInit(): void {
         this.route.params // (+) converts string 'id' to a number
             .switchMap((params: Params) => this.bikeService.get(+params['id']))
-            .subscribe((bike: IBike) => this.bike = bike);
+            .subscribe((bike: IRiderBike) => this.bike = bike);
     }
 }
